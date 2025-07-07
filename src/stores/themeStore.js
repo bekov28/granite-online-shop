@@ -8,6 +8,7 @@ export const useThemeStore = defineStore('themeStore', () => {
     theme.value = newTheme
     const bodyElement = document.body
     bodyElement.setAttribute('data-bs-theme', newTheme)
+    console.log('New theme set: ', newTheme)
   }
   return {
     theme,
