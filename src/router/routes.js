@@ -19,6 +19,7 @@ const router = createRouter({
     { path: '/not-found', name: APP_ROUTE_NAMES.NOT_FOUND, component: NotFound },
     { path: '/contact-us', name: APP_ROUTE_NAMES.CONTACT_US, component: ContactUs },
     { path: '/product-list', name: APP_ROUTE_NAMES.PRODUCT_LIST, component: ProductList },
+    { path: '/product-create', name: APP_ROUTE_NAMES.PRODUCT_CREATE, component: ProductUpsert },
   ],
 })
 
