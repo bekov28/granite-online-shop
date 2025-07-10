@@ -8,7 +8,7 @@
           <div v-if="errorList.length > 0" class="alert alert-danger pb-0">
             Please fix the following errors:
             <ul>
-              <li></li>
+              <li v-for="error in errorList" :key="error">{{ error }}</li>
             </ul>
           </div>
 
@@ -108,7 +108,7 @@ async function handleSubmit() {
       //if name length is less than 3 characters
       errorList.push('Name should be at least 3 characters long.')
     }
-    if (productObj.price < 0) {
+    if (productObj.price <= 0) {
       errorList.push('Price should be greater than 0.')
     }
     if (productObj.category === '') {
