@@ -5,10 +5,10 @@
         <form v-on:submit.prevent="handleSubmit">
           <div class="h2 text-center text-success">Create Product</div>
           <hr />
-          <div class="alert alert-danger pb-0">
+          <div v-if="errorList.length > 0" class="alert alert-danger pb-0">
             Please fix the following errors:
             <ul>
-              <li>Error List</li>
+              <li></li>
             </ul>
           </div>
 
@@ -85,6 +85,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 const route = useRoute()
 const loading = ref(false)
+const errorList = reactive([])
 
 const productObj = reactive({
   name: '',
@@ -100,16 +101,32 @@ const productObj = reactive({
 async function handleSubmit() {
   try {
     loading.value = true
+    errorList.length = 0 //clear it, so that it is recalculated every time when restarted
 
-    const productData = {
-      ...productObj,
-      price: Number(productObj.price),
-      salePrice: productObj.salePrice ? Number(productObj.salePrice) : null,
-      tags: productObj.tags.split(',').map((tag) => tag.trim()),
-      bestseller: Boolean(productObj.isBestseller),
+    //validations
+    if (productObj.name.length <= 3) {
+      //if name length is less than 3 characters
+      errorList.push('Name should be at least 3 characters long.')
     }
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    console.log(productData)
+    if (productObj.price < 0) {
+      errorList.push('Price should be greater than 0.')
+    }
+    if (productObj.category === '') {
+      errorList.push('Please select a category')
+    }
+
+    // if errorList is not equal to 0
+    if (!errorList.length) {
+      const productData = {
+        ...productObj,
+        price: Number(productObj.price),
+        salePrice: productObj.salePrice ? Number(productObj.salePrice) : null,
+        tags: productObj.tags.split(',').map((tag) => tag.trim()),
+        bestseller: Boolean(productObj.isBestseller),
+      }
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      console.log(productData)
+    }
   } catch (error) {
     console.log(error)
   } finally {
