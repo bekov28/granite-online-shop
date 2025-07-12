@@ -49,8 +49,10 @@
           </div>
           <div class="mt-3">
             <label class="text-muted">Category</label>
-            <select class="form-select">
-              <option key="option" value="option"></option>
+            <select class="form-select" v-model="productObj.category">
+              <option v-for="option in PRODUCT_CATEGORIES" :key="option" :value="option">
+                {{ option }}
+              </option>
             </select>
           </div>
           <div class="mb-3">
@@ -82,6 +84,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { PRODUCT_CATEGORIES } from '@/constants/appConstants'
 
 const route = useRoute()
 const loading = ref(false)
