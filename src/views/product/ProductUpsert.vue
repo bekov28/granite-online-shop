@@ -82,9 +82,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { PRODUCT_CATEGORIES } from '@/constants/appConstants'
+import { useSwal } from '@/utility/useSwal'
+
+const { showSuccess, showError, showConfirm } = useSwal()
 
 const route = useRoute()
 const loading = ref(false)
@@ -118,16 +121,16 @@ async function handleSubmit() {
       errorList.push('Please select a category')
     }
 
-    // if errorList is not equal to 0
-    if (!errorList.length) {
+    if (!errorList.length) { // if(errorList.length === 0)
       const productData = {
         ...productObj,
         price: Number(productObj.price),
         salePrice: productObj.salePrice ? Number(productObj.salePrice) : null,
-        tags: productObj.tags.split(',').map((tag) => tag.trim()),
+        tags: productObj.tags.length > 0 ? productObj.tags.split(',').map((tag) => tag.trim()) : [],
         bestseller: Boolean(productObj.isBestseller),
       }
       await new Promise((resolve) => setTimeout(resolve, 2000))
+      showSuccess('Product created successfully!')
       console.log(productData)
     }
   } catch (error) {
