@@ -8,4 +8,9 @@ export default {
     const docRef = await addDoc(productCollection, productData)
     return { id: docRef.id, ...productData }
   },
+
+  async getProducts() {
+    const snaphost = await getDocs(productCollection)
+    return snaphost.docs.map((doc) => ({id: doc.id, ...doc.data()}))
+  }
 }
