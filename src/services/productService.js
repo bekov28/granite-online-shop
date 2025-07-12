@@ -30,7 +30,7 @@ export default {
     return { id, ...productData }
   },
 
-  async deleteDoc(id) {
+  async deleteProduct(id) {
     const docRef = doc(db, 'products', id)
     await deleteDoc(docRef)
   },
