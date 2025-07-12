@@ -28,46 +28,55 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="product in products" :key="product.id">
                 <td class="ps-3">
                   <div class="d-flex align-items-center">
                     <img
-                      :src="`https://placehold.co/50x50`"
+                      :src="product.image || 'https://placehold.co/50x50'"
                       class="rounded object-fit-cover me-2"
                       style="width: 50px; height: 50px"
                     />
                     <div>
-                      <div class="fw-semibold small">NAME</div>
+                      <div class="fw-semibold small">{{ product.name }}</div>
                       <small
                         class="text-muted text-truncate d-inline-block"
                         style="max-width: 200px"
                       >
-                        DESCRIPTION
+                        {{ product.description }}
                       </small>
                     </div>
                   </div>
                 </td>
                 <td>
                   <span class="badge bg-secondary bg-opacity-10 text-secondary small">
-                    CATEGORY
+                    {{ product.category }}
                   </span>
                 </td>
                 <td>
                   <div class="d-flex flex-column">
-                    <span class="fw-semibold small">PRICE</span>
-                    <span class="text-danger small"> SALE PRICE </span>
+                    <span class="fw-semibold small">${{ product.price }}</span>
+                    <span class="text-danger small"> ${{ product.salePrice }} </span>
                   </div>
                 </td>
                 <td>
                   <div class="d-flex flex-wrap gap-1">
-                    <span class="badge bg-info bg-opacity-10 text-info small"> TAGS </span>
+                    <span
+                      class="badge bg-info bg-opacity-10 text-info small"
+                      v-for="tag in product.tags"
+                      :key="tag"
+                    >
+                      {{ tag }}
+                    </span>
                   </div>
                 </td>
                 <td>
-                  <span class="badge bg-warning bg-opacity-10 text-warning small">
+                  <span
+                    class="badge bg-warning bg-opacity-10 text-warning small"
+                    v-if="product.isBestseller"
+                  >
                     Bestseller
                   </span>
-                  <span class="text-muted text-center">---</span>
+                  <span v-else class="text-muted text-center">---</span>
                 </td>
                 <td class="pe-3 text-end">
                   <button class="btn btn-sm btn-outline-secondary m-2">
@@ -88,11 +97,24 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import productService from '@/services/productService'
 
+const products = ref([])
+const loading = ref(false)
+
 onMounted(() => {
-  const products = productService.getProducts()
-  console.log(products)
+  fetchProducts()
 })
+
+const fetchProducts = async () => {
+  try {
+    loading.value = true
+    products.value = await productService.getProducts()
+  } catch (error) {
+    console.log('Error occured: ', error)
+  } finally {
+    loading.value = false
+  }
+}
 </script>
