@@ -86,10 +86,13 @@ import { ref, reactive, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { PRODUCT_CATEGORIES } from '@/constants/appConstants'
 import { useSwal } from '@/utility/useSwal'
+import productService from '@/services/productService'
+import { APP_ROUTE_NAMES } from '@/constants/routeNames'
+
 
 const { showSuccess, showError, showConfirm } = useSwal()
 
-const route = useRoute()
+const router = useRouter() //useRouter is needed for router.push
 const loading = ref(false)
 const errorList = reactive([])
 
@@ -121,7 +124,8 @@ async function handleSubmit() {
       errorList.push('Please select a category')
     }
 
-    if (!errorList.length) { // if(errorList.length === 0)
+    if (!errorList.length) {
+      // if(errorList.length === 0)
       const productData = {
         ...productObj,
         price: Number(productObj.price),
@@ -129,8 +133,10 @@ async function handleSubmit() {
         tags: productObj.tags.length > 0 ? productObj.tags.split(',').map((tag) => tag.trim()) : [],
         bestseller: Boolean(productObj.isBestseller),
       }
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      await productService.createProduct(productData)
       showSuccess('Product created successfully!')
+      router.push({ name: APP_ROUTE_NAMES.PRODUCT_LIST })
+
       console.log(productData)
     }
   } catch (error) {
