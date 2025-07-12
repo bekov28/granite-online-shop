@@ -13,10 +13,13 @@
           <h1 class="text-secondary">Products</h1>
           <p class="mb-0 text-muted small">Manage your product listings</p>
         </div>
-        <a href="#" class="btn btn-success btn-sm gap-2 rounded-1 px-4 py-2">
+        <router-link
+          :to="{ name: APP_ROUTE_NAMES.PRODUCT_CREATE }"
+          class="btn btn-success btn-sm gap-2 rounded-1 px-4 py-2"
+        >
           <i class="bi bi-plus-square"></i> &nbsp;
           <span>Add Product</span>
-        </a>
+        </router-link>
       </div>
 
       <div class="card-body p-3">
@@ -84,7 +87,10 @@
                   <span v-else class="text-muted text-center">---</span>
                 </td>
                 <td class="pe-3 text-end">
-                  <button class="btn btn-sm btn-outline-secondary m-2">
+                  <button
+                    class="btn btn-sm btn-outline-secondary m-2"
+                    @click="router.push({name:APP_ROUTE_NAMES.PRODUCT_UPDATE, params: {id: product.id}})"
+                  >
                     <i class="bi bi-pencil-fill"></i> Edit
                   </button>
 
@@ -109,9 +115,10 @@ import { onMounted, ref } from 'vue'
 import productService from '@/services/productService'
 import { useSwal } from '@/utility/useSwal'
 import { APP_ROUTE_NAMES } from '@/constants/routeNames'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const { showSuccess, showError, showConfirm } = useSwal()
-
 const products = ref([])
 const loading = ref(false)
 

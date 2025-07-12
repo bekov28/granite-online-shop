@@ -62,10 +62,13 @@
             </div>
           </div>
           <div class="pt-3">
-            <button class="btn btn-success m-2 w-25" :disabled="loading">
-              <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>Submit
-            </button>
-            <a href="/" class="btn btn-secondary m-2 w-25"> Cancel </a>
+            <button class="btn btn-success m-2 w-25" :disabled="loading">Submit</button>
+            <router-link
+              :to="{ name: APP_ROUTE_NAMES.PRODUCT_LIST }"
+              class="btn btn-secondary m-2 w-25"
+            >
+              Cancel
+            </router-link>
           </div>
         </form>
       </div>
@@ -92,6 +95,7 @@ import { APP_ROUTE_NAMES } from '@/constants/routeNames'
 const { showSuccess, showError, showConfirm } = useSwal()
 
 const router = useRouter() //useRouter is needed for router.push
+const route = useRoute()
 const loading = ref(false)
 const errorList = reactive([])
 
@@ -104,6 +108,12 @@ const productObj = reactive({
   isBestseller: false,
   category: '',
   image: 'https://placehold.co/600x400',
+})
+
+const productIdForUpdate = route.params.id
+
+onMounted(async () => {
+  if(!productIdForUpdate) return; //if productIdForUdapte 
 })
 
 async function handleSubmit() {
