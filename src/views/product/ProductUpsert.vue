@@ -3,7 +3,9 @@
     <div class="row border p-4 my-5 rounded">
       <div class="col-9">
         <form v-on:submit.prevent="handleSubmit">
-          <div class="h2 text-center text-success">Create Product</div>
+          <div class="h2 text-center text-success">
+            {{ productIdForUpdate ? 'Update' : 'Create' }} Product
+          </div>
           <hr />
           <div v-if="errorList.length > 0" class="alert alert-danger pb-0">
             Please fix the following errors:
@@ -113,7 +115,16 @@ const productObj = reactive({
 const productIdForUpdate = route.params.id
 
 onMounted(async () => {
-  if(!productIdForUpdate) return; //if productIdForUdapte 
+  if (!productIdForUpdate) return //if productIdForUpdate
+  loading.value = true
+  try {
+    const product = await productService.getProductById(productIdForUpdate)
+    Object.assign(productObj, { ...product, tags: product.tags.join(', ') })
+  } catch (error) {
+    console.log(error)
+  } finally {
+    loading.value = false
+  }
 })
 
 async function handleSubmit() {
@@ -142,10 +153,17 @@ async function handleSubmit() {
         tags: productObj.tags.length > 0 ? productObj.tags.split(',').map((tag) => tag.trim()) : [],
         bestseller: Boolean(productObj.isBestseller),
       }
-      await productService.createProduct(productData)
-      showSuccess('Product created successfully!')
-      router.push({ name: APP_ROUTE_NAMES.PRODUCT_LIST })
+      if (productIdForUpdate) {
+        //update
+        await productService.updateProduct(productIdForUpdate, productData)
+        showSuccess('Product successfully updated')
+      } else {
+        //creates
+        await productService.createProduct(productData)
+        showSuccess('Product created successfully!')
+      }
 
+      router.push({ name: APP_ROUTE_NAMES.PRODUCT_LIST })
       console.log(productData)
     }
   } catch (error) {

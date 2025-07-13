@@ -16,7 +16,7 @@ export default {
     return snaphost.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
   },
 
-  async getProduct(id) {
+  async getProductById(id) {
     //get method
     const docRef = doc(db, 'products', id)
     const snaphost = await getDoc(docRef)
