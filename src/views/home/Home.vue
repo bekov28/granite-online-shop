@@ -37,7 +37,17 @@
       <div class="row g-3 mb-4 align-items-center">
         <div class="col-md-auto">
           <div class="d-flex flex-wrap gap-3">
-            <button class="btn btn-succcess px-4 py-2">CATEGORY</button>
+            <button
+              v-for="(category, index) in categoryList"
+              :key="index"
+              class="btn px-4 py-2"
+              :class="{
+                'btn-success text white': category === selectedCategory,
+                'btn-outline-success': category !== selectedCategory,
+              }"
+            >
+              {{ category }}
+            </button>
           </div>
         </div>
         <div class="col-md-auto ms-md-auto">
@@ -63,7 +73,11 @@
       </div>
       <div>
         <div class="row g-4">
-          <ProductCard v-for="product in products" :key="product.id" :product="product"></ProductCard>
+          <ProductCard
+            v-for="product in products"
+            :key="product.id"
+            :product="product"
+          ></ProductCard>
         </div>
       </div>
     </div>
@@ -74,9 +88,12 @@
 import { onMounted, ref } from 'vue'
 import productService from '@/services/productService'
 import ProductCard from '@/components/Products/ProductCard.vue'
+import { PRODUCT_CATEGORIES } from '@/constants/appConstants'
 
 const products = ref([])
 const loading = ref(false)
+const selectedCategory = ref('ALL')
+const categoryList = ref(['ALL', ...PRODUCT_CATEGORIES])
 
 onMounted(() => {
   fetchProducts()
