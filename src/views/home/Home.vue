@@ -60,13 +60,13 @@
               data-bs-toggle="dropdown"
             >
               <i class="bi bi-sort-down"></i>
-              <span class="text-capitalize">SORT</span>
+              <span class="text-capitalize">{{ selectedSortOption }}</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-              <li>
+              <li v-for="(sort, index) in SORT_OPTIONS" :key="index">
                 <button class="dropdown-item py-2 d-flex align-items-center gap-2">
                   <i class="bi"></i>
-                  <span class="text-capitalize"> SORT OPTIONS </span>
+                  <span class="text-capitalize"> {{ sort }}</span>
                 </button>
               </li>
             </ul>
@@ -93,13 +93,21 @@
 import { onMounted, ref, computed } from 'vue'
 import productService from '@/services/productService'
 import ProductCard from '@/components/Products/ProductCard.vue'
-import { PRODUCT_CATEGORIES } from '@/constants/appConstants'
+import {
+  PRODUCT_CATEGORIES,
+  SORT_NAME_A_Z,
+  SORT_OPTIONS,
+  SORT_NAME_Z_A,
+  SORT_PRICE_HIGH_LOW,
+  SORT_PRICE_LOW_HIGH,
+} from '@/constants/appConstants'
 
 const products = ref([])
 const loading = ref(false)
 const searchValue = ref('')
 const selectedCategory = ref('ALL')
 const categoryList = ref(['ALL', ...PRODUCT_CATEGORIES])
+const selectedSortOption = ref(SORT_OPTIONS[0])
 
 onMounted(() => {
   fetchProducts()
