@@ -64,7 +64,10 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
               <li v-for="(sort, index) in SORT_OPTIONS" :key="index">
-                <button class="dropdown-item py-2 d-flex align-items-center gap-2">
+                <button
+                  class="dropdown-item py-2 d-flex align-items-center gap-2"
+                  @click="selectedSortOption = sort"
+                >
                   <i class="bi"></i>
                   <span class="text-capitalize"> {{ sort }}</span>
                 </button>
@@ -139,6 +142,19 @@ const filteredProductList = computed(() => {
       return item.name.toUpperCase().includes(searchValue.value.toUpperCase())
     })
   }
+  if (selectedSortOption.value === SORT_NAME_A_Z) {
+    tempArray = tempArray.sort((a, b) => a.name.localeCompare(b.name))
+  }
+  if (selectedSortOption.value === SORT_NAME_Z_A) {
+    tempArray = tempArray.sort((a, b) => b.name.localeCompare(a.name))
+  }
+  if (selectedSortOption.value === SORT_PRICE_HIGH_LOW) {
+    tempArray = tempArray.sort((a, b) => b.price - a.price)
+  }
+  if (selectedSortOption.value === SORT_PRICE_LOW_HIGH) {
+    tempArray = tempArray.sort((a, b) => a.price - b.price)
+  }
+
   return tempArray
 })
 </script>
