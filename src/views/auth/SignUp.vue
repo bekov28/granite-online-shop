@@ -28,7 +28,7 @@
             </form>
             <p class="mt-3 form-label text-center">
               Already have an account?
-              <a href="#">Login here</a>
+              <router-link :to="APP_ROUTE_NAMES.SIGN_IN">Login here</router-link>
             </p>
           </div>
         </div>
@@ -41,6 +41,7 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSwal } from '@/utility/useSwal'
+import { APP_ROUTE_NAMES } from '@/constants/routeNames'
 
 const { showSuccess, showError } = useSwal()
 const router = useRouter()
