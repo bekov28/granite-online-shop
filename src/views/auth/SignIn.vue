@@ -5,24 +5,30 @@
         <div class="shadow-sm">
           <div class="card-body p-4">
             <h4 class="text-center mb-4">Sign In</h4>
-            <form>
+            <form @submit.prevent="handleSignIn">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" required />
+                <input v-model="form.email" type="email" class="form-control" id="email" required />
               </div>
               <div class="mb-4">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" required />
+                <input
+                  v-model="form.password"
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  required
+                />
               </div>
               <button type="submit" class="btn btn-success w-100">
                 <span class="spinner-border spinner-border-sm me-2"></span>
                 Sign In
               </button>
-              <div class="alert alert-danger mt-3 mb-0">ERROR LIST</div>
+              <div v-if="error" class="alert alert-danger mt-3 mb-0">{{ error }}</div>
             </form>
             <p class="mt-3 form-label text-center">
               Don't have an account?
-              <a href="#">Register here</a>
+              <router-link :to="APP_ROUTE_NAMES.SIGN_UP">Register here</router-link>
             </p>
           </div>
         </div>
@@ -30,3 +36,32 @@
     </div>
   </div>
 </template>
+<script setup>
+import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { useSwal } from '@/utility/useSwal'
+import { APP_ROUTE_NAMES } from '@/constants/routeNames'
+
+const { showSuccess, showError } = useSwal()
+const router = useRouter()
+
+const error = ref('')
+const form = reactive({
+  email: '',
+  password: '',
+})
+
+const handleSignIn = async () => {
+  try {
+    error.value = ''
+    console.log(form)
+    router.push({ name: APP_ROUTE_NAMES.HOME })
+  } catch (error) {
+    error.value = error.message
+    showError(error.message)
+  } finally {
+    form.email = ''
+    form.password = ''
+  }
+}
+</script>
