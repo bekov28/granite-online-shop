@@ -42,7 +42,7 @@ import { useRouter } from 'vue-router'
 import { useSwal } from '@/utility/useSwal'
 import { APP_ROUTE_NAMES } from '@/constants/routeNames'
 
-const { showSuccess, showError } = useSwal()
+const { showError } = useSwal()
 const router = useRouter()
 
 const error = ref('')
