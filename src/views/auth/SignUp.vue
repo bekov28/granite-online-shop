@@ -42,11 +42,13 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSwal } from '@/utility/useSwal'
 import { APP_ROUTE_NAMES } from '@/constants/routeNames'
+import { useAuthStore } from '@/stores/authStore'
 
 const { showSuccess, showError } = useSwal()
 const router = useRouter()
-
 const error = ref('')
+const authStore = useAuthStore()
+
 const form = reactive({
   email: '',
   password: '',
@@ -56,13 +58,11 @@ const handleSignUp = async () => {
   try {
     error.value = ''
     console.log(form)
+    authStore.signUpUser(form.email, form.password)
     showSuccess('Account created successfully')
-  } catch (error) {
-    error.value = error.message
-    showError(error.message)
-  } finally {
-    form.email = ''
-    form.password = ''
+  } catch (err) {
+    error.value = err.message
+    showError(err.message)
   }
 }
 </script>
