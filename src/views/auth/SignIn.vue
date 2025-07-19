@@ -62,9 +62,9 @@ const handleSignIn = async () => {
     console.log(form)
     await authStore.signInUser(form.email, form.password)
     router.push({ name: APP_ROUTE_NAMES.HOME })
-  } catch (error) {
-    error.value = error.message
-    showError(error.message)
+  } catch (err) {
+    error.value = err.message
+    showError(err.message)
   } finally {
     form.email = ''
     form.password = ''
