@@ -58,7 +58,7 @@ const handleSignUp = async () => {
   try {
     error.value = ''
     console.log(form)
-    authStore.signUpUser(form.email, form.password)
+    await authStore.signUpUser(form.email, form.password)
     showSuccess('Account created successfully')
   } catch (err) {
     error.value = err.message
