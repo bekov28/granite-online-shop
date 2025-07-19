@@ -82,7 +82,7 @@
             >
           </li>
           <li class="nav-item" v-if="authStore.isAuthenticated">
-            <button class="nav-link">Sign Out</button>
+            <button class="nav-link" @click="[authStore.signOutUser(), router.push({name: APP_ROUTE_NAMES.HOME})]">Sign Out</button>
           </li>
         </ul>
       </div>
