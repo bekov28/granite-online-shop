@@ -3,17 +3,28 @@ import { ref, computed } from 'vue'
 import { db, auth } from '@/utility/firebaseConfig'
 import { doc, setDoc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { ROLE_ADMIN, ROLE_USER } from '@/constants/appConstants'
 
 export const useAuthStore = defineStore('authStore', () => {
   const user = ref(null)
   const error = ref(null)
   const isLoading = ref(false)
+  const role = ref(null)
 
   const signUpUser = async (email, password) => {
     isLoading.value = true
     try {
       const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
       user.value = userCredentials.user //saving user object to user.value
+
+      await setDoc(doc(db, 'users', userCredentials.user.uid), { //creating user collection
+        email: userCredentials.user.email,
+        role: ROLE_USER,
+        createdAt: new Date(),
+      })
+
+      user.role = ROLE_USER
+      user.value = userCredentials.user
       error.value = null //if everything is valid
     } catch (err) {
       error.value = err.message
