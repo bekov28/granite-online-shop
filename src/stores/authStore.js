@@ -2,7 +2,12 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { db, auth } from '@/utility/firebaseConfig'
 import { doc, setDoc } from 'firebase/firestore'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth'
 import { ROLE_ADMIN, ROLE_USER } from '@/constants/appConstants'
 
 export const useAuthStore = defineStore('authStore', () => {
@@ -10,9 +15,22 @@ export const useAuthStore = defineStore('authStore', () => {
   const error = ref(null)
   const isLoading = ref(false)
   const role = ref(null)
+  const initialized = ref(false) //if authorization has been initialized
 
   const isAuthenticated = computed(() => user.value !== null)
   const isAdmin = computed(() => role.value === ROLE_ADMIN)
+
+  const initializeAuth = async () => {
+    console.log('initializeAuth')
+    onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        user.value = firebaseUser
+        initialized.value = true
+      } else {
+        clearUser()
+      }
+    })
+  }
 
   const signUpUser = async (email, password) => {
     isLoading.value = true
@@ -71,5 +89,6 @@ export const useAuthStore = defineStore('authStore', () => {
     //actions
     signUpUser,
     signInUser,
+    initializeAuth,
   }
 })
