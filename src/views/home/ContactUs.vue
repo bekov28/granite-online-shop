@@ -1,9 +1,9 @@
 <template>
   <!-- Hero Section -->
-  <section class="hero-section">
+  <section class="hero-section bg-success">
     <div class="container text-center">
-      <h1 class="display-4 fw-bold">Get In Touch</h1>
-      <p class="lead">We'd love to hear from you. Here's how you can reach us.</p>
+      <h1 class="display-4 fw-bold text-white">Get In Touch</h1>
+      <p class="lead text-white">We'd love to hear from you. Here's how you can reach us.</p>
     </div>
   </section>
 
