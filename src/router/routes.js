@@ -22,7 +22,6 @@ const router = createRouter({
       path: '/contact-us',
       name: APP_ROUTE_NAMES.CONTACT_US,
       component: ContactUs,
-      beforeEnter: [isAuthenticated],
     },
     {
       path: '/product-list',

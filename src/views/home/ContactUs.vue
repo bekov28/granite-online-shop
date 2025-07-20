@@ -1,6 +1,6 @@
 <template>
   <!-- Hero Section -->
-  <section class="hero-section bg-success">
+  <section class="hero-section">
     <div class="container text-center">
       <h1 class="display-4 fw-bold text-white">Get In Touch</h1>
       <p class="lead text-white">We'd love to hear from you. Here's how you can reach us.</p>
@@ -25,7 +25,7 @@
             <div class="card-body">
               <i class="fas fa-phone fa-3x text-primary mb-3"></i>
               <h5 class="card-title">Call Us</h5>
-              <p class="card-text">+82 (10) 0000-0000<br />Monday-Friday: 9am-6pm</p>
+              <p class="card-text">+82 (10) 1234-5678<br />Monday-Friday: 9am-6pm</p>
             </div>
           </div>
         </div>
@@ -112,3 +112,11 @@
     </div>
   </section>
 </template>
+
+<style scoped>
+.hero-section {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  padding: 80px 0;
+}
+</style>
