@@ -41,6 +41,9 @@
           </li>
         </ul>
         <ul class="d-flex navbar-nav">
+          <li class="nav-link" v-if="authStore.isAuthenticated">
+            Welcome, {{ authStore.user?.email }}
+          </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -100,6 +103,7 @@ import { APP_ROUTE_NAMES } from '@/constants/routeNames'
 import { useRouter } from 'vue-router'
 import { useThemeStore } from '@/stores/themeStore'
 import { useAuthStore } from '@/stores/authStore'
+import { auth } from '@/utility/firebaseConfig'
 
 const themeStore = useThemeStore()
 const authStore = useAuthStore()
