@@ -8,6 +8,7 @@ import Home from '@/views/home/Home.vue'
 import ProductList from '@/views/product/ProductList.vue'
 import ProductUpsert from '@/views/product/ProductUpsert.vue'
 import { APP_ROUTE_NAMES } from '@/constants/routeNames'
+import { useAuthStore } from '@/stores/authStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,15 @@ const router = createRouter({
     { path: '/product-create', name: APP_ROUTE_NAMES.PRODUCT_CREATE, component: ProductUpsert },
     { path: '/product-update/:id', name: APP_ROUTE_NAMES.PRODUCT_UPDATE, component: ProductUpsert },
   ],
+})
+
+//
+router.beforeEach(async (to, from) => {
+  const authStore = useAuthStore()
+  //keeps the user signed in or signed out though the refresh button clicked
+  if (!authStore.initialized) {
+    await authStore.initializeAuth()
+  }
 })
 
 export default router
