@@ -89,7 +89,12 @@
                 <td class="pe-3 text-end">
                   <button
                     class="btn btn-sm btn-outline-secondary m-2"
-                    @click="router.push({name:APP_ROUTE_NAMES.PRODUCT_UPDATE, params: {id: product.id}})"
+                    @click="
+                      router.push({
+                        name: APP_ROUTE_NAMES.PRODUCT_UPDATE,
+                        params: { id: product.id },
+                      })
+                    "
                   >
                     <i class="bi bi-pencil-fill"></i> Edit
                   </button>
@@ -113,7 +118,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import productService from '@/services/productService'
-import { useSwal } from '@/utility/useSwal'
+import { useSwal } from '@/composibles/useSwal'
 import { APP_ROUTE_NAMES } from '@/constants/routeNames'
 import { useRouter } from 'vue-router'
 

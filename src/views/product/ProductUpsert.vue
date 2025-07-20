@@ -101,7 +101,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { PRODUCT_CATEGORIES } from '@/constants/appConstants'
-import { useSwal } from '@/utility/useSwal'
+import { useSwal } from '@/composibles/useSwal'
 import productService from '@/services/productService'
 import { APP_ROUTE_NAMES } from '@/constants/routeNames'
 import { uploadToCloudinary } from '@/utility/cloudinary'
