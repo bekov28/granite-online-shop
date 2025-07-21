@@ -12,7 +12,7 @@ export function useSwal() {
       icon: 'success',
       position: 'center',
       showConfirmButton: false,
-      time: 1500,
+      timer: 1500,
     })
   }
 
@@ -23,7 +23,7 @@ export function useSwal() {
       icon: 'error',
       position: 'top-end',
       showConfirmButton: false,
-      time: 1500,
+      timer: 1500,
     })
   }
 
@@ -39,5 +39,5 @@ export function useSwal() {
     })
   }
 
-  return {showSuccess, showError, showConfirm }
+  return { showSuccess, showError, showConfirm }
 }
