@@ -165,6 +165,7 @@ async function handleSubmit() {
         salePrice: productObj.salePrice ? Number(productObj.salePrice) : null,
         tags: productObj.tags.length > 0 ? productObj.tags.split(',').map((tag) => tag.trim()) : [],
         bestseller: Boolean(productObj.isBestseller),
+        image: productObj.image
       }
       if (productIdForUpdate) {
         //update
