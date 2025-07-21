@@ -132,7 +132,10 @@ onMounted(async () => {
   loading.value = true
   try {
     const product = await productService.getProductById(productIdForUpdate)
-    Object.assign(productObj, { ...product, tags: product.tags.join(', ') })
+    Object.assign(productObj, {
+      ...product,
+      tags: product.tags.join(', '),
+    })
   } catch (error) {
     console.log(error)
   } finally {
@@ -165,7 +168,7 @@ async function handleSubmit() {
         salePrice: productObj.salePrice ? Number(productObj.salePrice) : null,
         tags: productObj.tags.length > 0 ? productObj.tags.split(',').map((tag) => tag.trim()) : [],
         bestseller: Boolean(productObj.isBestseller),
-        image: productObj.image
+        category: productObj.category,
       }
       if (productIdForUpdate) {
         //update

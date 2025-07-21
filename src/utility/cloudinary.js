@@ -11,7 +11,7 @@ export const uploadToCloudinary = async (file) => {
     if (!response.ok) {
       throw new Error('Failed to upload image')
     }
-    const data = response.json()
+    const data = await response.json()
     return data.secure_url
   } catch (err) {
     console.error(err)
