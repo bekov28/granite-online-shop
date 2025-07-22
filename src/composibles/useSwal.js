@@ -18,12 +18,12 @@ export function useSwal() {
 
   const showError = async (message) => {
     return await showAlert({
-      title: 'Error Occured!',
+      title: 'No Access!',
       text: message,
       icon: 'error',
-      position: 'top-end',
+      position: 'center',
       showConfirmButton: false,
-      timer: 1500,
+      timer: 2000,
     })
   }
 
