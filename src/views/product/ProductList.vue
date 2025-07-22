@@ -136,6 +136,7 @@ const fetchProducts = async () => {
     loading.value = true
     await new Promise((resolve) => setTimeout(resolve, 500))
     products.value = await productService.getProducts()
+    console.log('Fetched products: ', products.value )
   } catch (error) {
     console.log('Error occured: ', error)
   } finally {
@@ -150,7 +151,7 @@ const handleProductDelete = async (productId) => {
     if (confirmResult.isConfirmed) {
       await productService.deleteProduct(productId)
       await showSuccess('Product deleted successfully')
-      fetchProducts()
+      await fetchProducts()
     }
   } catch (error) {
     console.log('Delete failed', error)

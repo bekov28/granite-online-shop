@@ -1,3 +1,4 @@
+import { TrackOpTypes } from 'vue'
 import { db } from '../utility/firebaseConfig'
 import { collection, addDoc, getDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
@@ -31,7 +32,12 @@ export default {
   },
 
   async deleteProduct(id) {
-    const docRef = doc(db, 'products', id)
-    await deleteDoc(docRef)
+    try {
+      const docRef = doc(db, 'products', id)
+      console.log(id)
+      await deleteDoc(docRef)
+    } catch (error) {
+      console.log('Error deleting product: ', error)
+    }
   },
 }
