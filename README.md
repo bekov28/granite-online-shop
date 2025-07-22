@@ -1,5 +1,5 @@
 # Granite Online Shop
-Write a short sentence or two about this project and what it does. Be sure to include a link and a screenshot (we're front end devs so we can actually see our work!).
+An online one-stop Stone Shop - Premium Granite & Quartz (powered by Vue.js and Firebase). Users can sign up and look through all the listed collection items (granite and other stones on sale), can browse by category and search the products they want. 
 
 **Link to project:** [http://recruiters-love-seeing-live-demos.com/](https://granite-online-shop-mim9.vercel.app/)
 
