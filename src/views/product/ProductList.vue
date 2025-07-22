@@ -146,14 +146,14 @@ const fetchProducts = async () => {
 const handleProductDelete = async (productId) => {
   try {
     loading.value = true
-    const confirmResult = await showConfirm('')
+    const confirmResult = await showConfirm('Are you sure?')
     if (confirmResult.isConfirmed) {
       await productService.deleteProduct(productId)
       await showSuccess('Product deleted successfully')
       fetchProducts()
     }
   } catch (error) {
-    console.log(error)
+    console.log('Delete failed', error)
   } finally {
     loading.value = false
   }

@@ -134,7 +134,7 @@ onMounted(async () => {
     const product = await productService.getProductById(productIdForUpdate)
     Object.assign(productObj, {
       ...product,
-      tags: product.tags.join(', '),
+      tags: product.tags ? product.tags.join(', ') : ' ',
     })
   } catch (error) {
     console.log(error)
