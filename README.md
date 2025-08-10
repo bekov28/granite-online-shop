@@ -1,7 +1,7 @@
 # Granite Online Shop
 An online one-stop Stone Shop - Premium Granite & Quartz (powered by Vue.js and Firebase). Users can sign up and look through all the listed collection items (granite and other stones on sale), can browse by category and search the products they want. 
 
-**Link to project:** [[http://recruiters-love-seeing-live-demos.com/](https://granite-online-shop-mim9.vercel.app/]([https://graniteshop-29e1a.web.app](https://graniteshop-29e1a.web.app/)))]
+**Link to project:** [Live Demo](https://graniteshop-29e1a.web.app/)
 
 **Tech used:** HTML, JavaScript (Vue.js), Bootstrap for styling, Firebase for backend, Cloudinary for image upload, Pinia for State Management
 
