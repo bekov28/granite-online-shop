@@ -1,3 +1,5 @@
+#This website was built following the Vue.js Crash Course on Udemy to gain practical skills on Vue.js, Pinia, Cloudinary and Firebase.
+
 # Granite Online Shop
 An online one-stop Stone Shop - Premium Granite & Quartz (powered by Vue.js and Firebase). Users can sign up and look through all the listed collection items (granite and other stones on sale), can browse by category and search the products they want. 
 
